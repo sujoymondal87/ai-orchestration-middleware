@@ -1,6 +1,10 @@
 {
   "name": "ai-orchestration-middleware-backend",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20.18.1",
+    "npm": ">=10.0.0"
+  },
   "private": true,
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",

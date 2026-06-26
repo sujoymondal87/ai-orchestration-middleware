@@ -4,6 +4,9 @@ A standalone reimplementation of the AI Block Configurator pipeline — the **sc
 
 Distilled from Neareo's production system (servermultiai.ts, ~9,070 lines), serving 30+ cultural institution apps across Spain, France, and Belgium.
 
+**Live Demo:** https://goalawareai.netlify.app  
+**Backend API:** https://ai-orchestration-middleware.onrender.com/health
+
 ## What it demonstrates
 
 - **Multi-model routing** — DeepSeek (default) → Gemini → Claude, priority-based fallback, no LangChain
@@ -36,13 +39,13 @@ Client panel                                         system prompt
 | Session store | Redis via Upstash (no Docker) |
 | AI Providers | DeepSeek (default) · Gemini · Claude |
 | Frontend | React · Vite |
-| Deploy | Railway (backend) · Vercel (frontend) |
+| Deploy | Render (backend) · Netlify (frontend) |
 
 ## Quick start
 
 ```bash
 # 1. Clone
-git clone https://github.com/YOUR_USER/ai-orchestration-middleware.git
+git clone https://github.com/sujoymondal87/ai-orchestration-middleware.git
 cd ai-orchestration-middleware
 
 # 2. Backend
@@ -103,12 +106,19 @@ I|lead
 
 ## Deploy
 
-**Railway (backend):**
-1. Connect repo, set root to `/backend`
-2. Add all `.env` vars in Railway dashboard
+**Render (backend):**
+1. Connect repo, set root directory to `backend`
+2. Build command: `npm install && npm run build`
 3. Start command: `npm start`
+4. Add all `.env` vars in Render dashboard
+5. Add `NODE_VERSION=20.18.1` and `NPM_CONFIG_PRODUCTION=false` to env vars
 
-**Vercel (frontend):**
-1. Connect repo, set root to `/frontend`
-2. Add `VITE_API_URL` if needed (defaults to same-origin proxy)
-3. Build: `npm run build` · Output: `dist`
+**Netlify (frontend):**
+1. Connect repo, set base directory to `frontend`
+2. Build command: `npm run build`
+3. Publish directory: `frontend/dist`
+4. Add `VITE_API_URL=https://ai-orchestration-middleware.onrender.com` to env vars
+
+## Production context
+
+The production system this is derived from routes across 6 AI providers (Claude, OpenAI, DeepSeek, Kimi, GLM, fal.ai), manages Redis-backed sessions at scale across 30+ live apps, and uses the T|D|I| pipe protocol for embedded client widgets inside cultural institution apps across Spain, France, and Belgium. This repo isolates the core scrape → compile → agent → chat pipeline in standalone, runnable form.

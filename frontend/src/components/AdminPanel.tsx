@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiUrl } from '../api';
 
 interface AIBlockConfig {
   knowledgeSource?: { scraperUrl?: string; manualText?: string };
@@ -46,7 +47,7 @@ export default function AdminPanel({ onAgentCompiled }: AdminPanelProps) {
     setConfig(null);
     setSystemPrompt('');
     try {
-      const res = await fetch('/api/scrape-and-fill-config', {
+      const res = await fetch(apiUrl('/api/scrape-and-fill-config'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
@@ -67,7 +68,7 @@ export default function AdminPanel({ onAgentCompiled }: AdminPanelProps) {
     setCompiling(true);
     setError('');
     try {
-      const res = await fetch('/api/generate-agent', {
+      const res = await fetch(apiUrl('/api/generate-agent'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ config, clientId: 'client1', appId: 'app1', blockId: 'block1' }),

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { apiUrl } from '../api';
 
 interface Signal {
   type: 'T' | 'B' | 'C' | 'D' | 'I';
@@ -61,7 +62,7 @@ export default function ClientPanel({ agentReady }: ClientPanelProps) {
     setSending(true);
 
     try {
-      const res = await fetch('/api/ai-assistant-client-end', {
+      const res = await fetch(apiUrl('/api/ai-assistant-client-end'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: text.trim(), ...BASE_IDS, session_id: sessionId }),
@@ -96,10 +97,11 @@ export default function ClientPanel({ agentReady }: ClientPanelProps) {
   };
 
   const handleClear = async () => {
-    await fetch('/api/ai-assistant-client-end/clear-conversation', {
+    await fetch(apiUrl('/api/ai-assistant-client-end/clear-conversation'), {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...BASE_IDS, session_id: sessionId }),
+
     });
     setMessages([]);
     setTurnCount(0);

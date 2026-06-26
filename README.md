@@ -5,7 +5,8 @@ A standalone reimplementation of the AI Block Configurator pipeline — the **sc
 Distilled from Neareo's production system (servermultiai.ts, ~9,070 lines), serving 30+ cultural institution apps across Spain, France, and Belgium.
 
 **Live Demo:** https://goalawareai.netlify.app  
-**Backend API:** https://ai-orchestration-middleware.onrender.com/health
+**Backend API:** https://ai-orchestration-middleware.onrender.com/health  
+**Case Study:** https://sujoymondal-tech.vercel.app/case-studies/building-ai-orchestration-without-a-framework
 
 ## What it demonstrates
 

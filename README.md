@@ -2,7 +2,7 @@
 
 A standalone reimplementation of the AI Block Configurator pipeline — the **scrape → compile → agent → chat** flow.
 
-Distilled from Neareo's production system (servermultiai.ts, ~9,070 lines), serving 30+ cultural institution apps across Spain, France, and Belgium.
+Distilled from Neareo's production system, serving 30+ cultural institution apps across Spain, France, and Belgium.
 
 **Live Demo:** https://goalawareai.netlify.app  
 **Backend API:** https://ai-orchestration-middleware.onrender.com/health  

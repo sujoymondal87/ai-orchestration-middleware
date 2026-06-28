@@ -4,7 +4,7 @@ A standalone reimplementation of the AI Block Configurator pipeline — the **sc
 
 Distilled from Neareo's production system, serving 30+ cultural institution apps across Spain, France, and Belgium.
 
-**Live Demo:** https://goalawareai.netlify.app  
+**Live Demo:** https://goalawareai.vercel.app  
 **Backend API:** https://ai-orchestration-middleware.onrender.com/health  
 **Case Study:** https://sujoymondal-tech.vercel.app/case-studies/building-ai-orchestration-without-a-framework
 
@@ -40,7 +40,7 @@ Client panel                                         system prompt
 | Session store | Redis via Upstash (no Docker) |
 | AI Providers | DeepSeek (default) · Gemini · Claude |
 | Frontend | React · Vite |
-| Deploy | Render (backend) · Netlify (frontend) |
+| Deploy | Render (backend) · Vercel (frontend) |
 
 ## Quick start
 
@@ -114,7 +114,7 @@ I|lead
 4. Add all `.env` vars in Render dashboard
 5. Add `NODE_VERSION=20.18.1` and `NPM_CONFIG_PRODUCTION=false` to env vars
 
-**Netlify (frontend):**
+**Vercel (frontend):**
 1. Connect repo, set base directory to `frontend`
 2. Build command: `npm run build`
 3. Publish directory: `frontend/dist`

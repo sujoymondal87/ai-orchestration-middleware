@@ -94,11 +94,133 @@ input[type=range] {
   cursor: pointer;
 }
 
-/* Responsive sidebar */
-@media (max-width: 900px) {
-  .right-sidebar { display: none !important; }
-  .mobile-sidebar { display: flex !important; }
+/* ── Desktop layout ── */
+.app-root { display: flex; flex-direction: column; height: 100vh; }
+
+.main-panels {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
 }
-@media (min-width: 901px) {
+.panel-left {
+  flex: 1;
+  overflow: hidden;
+  border-right: 1px solid #2e2e38;
+  min-width: 0;
+}
+.panel-right {
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Step bar — scrolls horizontally, never wraps */
+.step-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #1a1a1f;
+  background: #0d0d12;
+  flex-shrink: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  gap: 0;
+}
+.step-bar::-webkit-scrollbar { height: 0; }
+
+/* Feature footer */
+.feature-strip {
+  display: flex;
+  background: #0d0d12;
+  border-top: 1px solid #1a1a1f;
+  height: 56px;
+  flex-shrink: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-right: 1px solid #1a1a1f;
+  flex: 1;
+  min-width: 130px;
+  flex-shrink: 0;
+}
+
+/* Right sidebar (desktop only) */
+.right-sidebar { display: flex; flex-direction: column; }
+.mobile-sidebar { display: none; }
+
+/* ── Mobile (≤ 700px) ── */
+@media (max-width: 700px) {
+  /* Let the page be a natural scrolling document */
+  body { overflow: auto; height: auto; }
+  #root { height: auto; overflow: visible; }
+
+  /* Root container: natural column, no height constraint */
+  .app-root { height: auto !important; min-height: 100vh; overflow: visible; }
+
+  /* Stack panels vertically — each gets its own height with internal scroll */
+  .main-panels {
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+    flex: none;
+  }
+  .panel-left {
+    flex: none;
+    width: 100%;
+    height: 70vh;
+    border-right: none;
+    border-bottom: 1px solid #2e2e38;
+    overflow: hidden;
+  }
+  .panel-right {
+    flex: none;
+    width: 100%;
+    height: 85vh;
+    overflow: hidden;
+  }
+
+  /* Feature strip at the very bottom, horizontal scroll */
+  .feature-strip {
+    height: auto;
+    min-height: 48px;
+    padding: 4px 0;
+    flex-shrink: 0;
+  }
+  .feature-item {
+    min-width: 150px;
+    flex: none;
+    padding: 6px 14px;
+  }
+
+  /* Header: compact */
+  .header-sub { display: none !important; }
+  .header-docs { display: none !important; }
+  .logo-text { font-size: 11px !important; }
+
+  /* Right sidebar hidden on mobile */
+  .right-sidebar { display: none !important; }
+
+  /* Mobile info bar shown below chat (inside ClientPanel) */
+  .mobile-sidebar {
+    display: flex !important;
+    overflow-x: auto;
+    border-top: 1px solid #1a1a1f;
+    background: #0d0d12;
+    flex-shrink: 0;
+    height: 44px;
+    align-items: center;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (min-width: 701px) {
   .mobile-sidebar { display: none !important; }
+  .right-sidebar { display: flex !important; flex-direction: column; }
 }

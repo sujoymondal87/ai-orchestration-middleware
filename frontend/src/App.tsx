@@ -53,13 +53,13 @@ export default function App() {
   const redisOk = health?.redis === 'connected';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div className="app-root" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       {/* Top bar */}
       <header style={s.topBar}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={s.logoText}>AI Orchestration Middleware</span>
-          <span style={s.logoDivider}>·</span>
-          <span style={s.logoSub}>scrape → compile → agent → chat</span>
+          <span style={s.logoText} className="logo-text">AI Orchestration Middleware</span>
+          <span style={s.logoDivider} className="header-sub">·</span>
+          <span style={s.logoSub} className="header-sub">scrape → compile → agent → chat</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <StatusDot label="API Status" ok={apiOk} value={apiOk ? 'Healthy' : 'Offline'} />
@@ -73,18 +73,18 @@ export default function App() {
             </div>
           )}
           <a href="https://github.com/sujoymondal87/ai-orchestration-middleware" target="_blank"
-            rel="noreferrer" style={s.docsBtn}>
+            rel="noreferrer" style={s.docsBtn} className="header-docs">
             View Docs
           </a>
         </div>
       </header>
 
       {/* Main panels */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        <div style={{ flex: 1, overflow: 'hidden', borderRight: '1px solid #2e2e38' }}>
+      <div className="main-panels">
+        <div className="panel-left">
           <AdminPanel onAgentCompiled={agent => { setCompiledAgent(agent); setChatStarted(false); }} />
         </div>
-        <div style={{ flex: 1, overflow: 'hidden' }}>
+        <div className="panel-right">
           <ClientPanel
             compiledAgent={compiledAgent}
             onChatStarted={() => setChatStarted(true)}
@@ -93,15 +93,10 @@ export default function App() {
         </div>
       </div>
 
-      {/* Mobile sidebar (hidden on desktop via CSS) */}
-      <div className="mobile-sidebar" style={s.mobileSidebar}>
-        <MobileSidebarContent health={health} compiledAgent={compiledAgent} />
-      </div>
-
       {/* Feature strip */}
-      <footer style={s.featureStrip}>
+      <footer className="feature-strip">
         {FEATURES.map(f => (
-          <div key={f.label} style={s.featureItem}>
+          <div key={f.label} className="feature-item">
             <span style={s.featureIcon}>{f.icon}</span>
             <div>
               <div style={s.featureLabel}>{f.label}</div>
@@ -126,24 +121,6 @@ function StatusDot({ label, ok, value }: { label: string; ok: boolean; value: st
   );
 }
 
-function MobileSidebarContent({ health, compiledAgent }: { health: HealthData | null; compiledAgent: CompiledAgent | null }) {
-  return (
-    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', padding: '12px 20px', overflowX: 'auto' }}>
-      {health?.providers?.map(p => (
-        <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <div style={{ width: 6, height: 6, borderRadius: '50%', background: p.available ? '#00d084' : '#555' }} />
-          <span style={{ fontSize: 12, color: '#888', textTransform: 'capitalize' }}>{p.name}</span>
-          <span style={{ fontSize: 11, color: p.available ? '#00d084' : '#555' }}>{p.available ? 'Available' : 'Unavailable'}</span>
-        </div>
-      ))}
-      {compiledAgent && (
-        <div style={{ fontSize: 12, color: '#888' }}>
-          Agent: <span style={{ color: '#a78bfa' }}>{compiledAgent.agentId}</span>
-        </div>
-      )}
-    </div>
-  );
-}
 
 const FEATURES = [
   { icon: '⚡', label: 'Multi-Model Orchestration', sub: 'DeepSeek → Gemini → Claude' },
@@ -168,10 +145,6 @@ const s: Record<string, React.CSSProperties> = {
   docsBtn: {
     background: '#1a1a1f', border: '1px solid #2e2e38', borderRadius: 6,
     padding: '5px 12px', fontSize: 12, color: '#e8e8ea', textDecoration: 'none', fontWeight: 500,
-  },
-  mobileSidebar: {
-    background: '#0d0d12', borderTop: '1px solid #2e2e38',
-    flexShrink: 0, display: 'none',
   },
   featureStrip: {
     background: '#0d0d12', borderTop: '1px solid #1a1a1f',

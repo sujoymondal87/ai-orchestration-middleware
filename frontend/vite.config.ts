@@ -10,4 +10,9 @@ export default defineConfig({
       '/health': 'http://localhost:3000',
     },
   },
+  // Use polling watcher on Windows to avoid chokidar crashes on Ctrl+F5
+  watch: {
+    usePolling: false,
+    useFsEvents: false,
+  },
 });

@@ -102,7 +102,7 @@ export default function AdminPanel({ onAgentCompiled }: AdminPanelProps) {
   return (
     <div style={s.panel}>
       {/* Step progress */}
-      <div style={s.stepBar}>
+      <div className="step-bar" style={{ gap: 0 }}>
         {STEPS.map((st, i) => {
           const done = step > st.n;
           const active = step === st.n || (st.n === 5 && step === 4 && compiled);

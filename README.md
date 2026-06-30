@@ -3,7 +3,9 @@
 A standalone reimplementation of the AI agent pipeline from a production no-code platform — the full **scrape → extract → compile → agent → chat** flow, without LangChain or any orchestration framework.
 
 **Live Demo:** https://goalawareai.vercel.app
+
 **Backend API:** https://ai-orchestration-middleware.onrender.com/health
+
 **Case Study:** https://sujoymondal-tech.vercel.app/case-studies/building-ai-orchestration-without-a-framework
 
 ---

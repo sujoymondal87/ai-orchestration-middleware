@@ -73,6 +73,7 @@ router.post('/api/ai-assistant-client-end', async (req: Request, res: Response) 
     language = 'en',
     provider,
     model,
+    temperature,
   } = req.body as {
     query?: string;
     user_id?: string;
@@ -83,6 +84,7 @@ router.post('/api/ai-assistant-client-end', async (req: Request, res: Response) 
     language?: string;
     provider?: string;
     model?: string;
+    temperature?: number;
   };
 
   if (!query || !query.trim()) {
@@ -142,7 +144,7 @@ router.post('/api/ai-assistant-client-end', async (req: Request, res: Response) 
     const result = await registry.complete(messagesToSend, {
       provider: selectedProvider,
       model: selectedModel,
-      temperature: 0.7,
+      temperature: temperature ?? 0.7,
       maxTokens: 500,
     });
 

@@ -6,6 +6,7 @@ export interface ScrapeResult {
   title: string;
   text: string;
   truncated: boolean;
+  contentSizeKb: number;
 }
 
 const MAX_CHARS = 8000;
@@ -18,8 +19,6 @@ export async function scrapeUrl(url: string): Promise<ScrapeResult> {
   });
 
   const $ = cheerio.load(response.data as string);
-
-  // remove noise
   $('script, style, nav, footer, header, iframe, noscript, [aria-hidden="true"]').remove();
 
   const title = $('title').text().trim() || $('h1').first().text().trim();
@@ -30,7 +29,6 @@ export async function scrapeUrl(url: string): Promise<ScrapeResult> {
     if (t.length > 30) paragraphs.push(t);
   });
 
-  // deduplicate
   const seen = new Set<string>();
   const unique = paragraphs.filter(p => {
     if (seen.has(p)) return false;
@@ -39,8 +37,9 @@ export async function scrapeUrl(url: string): Promise<ScrapeResult> {
   });
 
   let text = unique.join('\n');
+  const rawSizeKb = Math.round(Buffer.byteLength(text, 'utf8') / 102.4) / 10;
   const truncated = text.length > MAX_CHARS;
   if (truncated) text = text.slice(0, MAX_CHARS);
 
-  return { url, title, text, truncated };
+  return { url, title, text, truncated, contentSizeKb: rawSizeKb };
 }

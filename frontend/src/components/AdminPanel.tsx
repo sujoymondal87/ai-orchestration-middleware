@@ -218,7 +218,7 @@ export default function AdminPanel({ onAgentCompiled }: AdminPanelProps) {
             <div style={s.resultGrid}>
               <div style={s.resultCol}>
                 <ResultRow label="Agent ID" value={compiled.agentId} mono />
-                <ResultRow label="System Prompt" value={`${compiled.tokenCount.toLocaleString()} tokens`} />
+                <ResultRow label="System Prompt" value={`${(compiled.tokenCount ?? 0).toLocaleString()} tokens`} />
                 <ResultRow label="Goal" value={compiled.config.conversationRules.mainObjectives} short />
                 <ResultRow label="Memory" value="Redis (Upstash)" />
                 <ResultRow label="Redis Key" value={`ai_agent_system_prompt:client1_app1:block1`} mono small />
